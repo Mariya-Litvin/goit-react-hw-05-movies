@@ -1,17 +1,19 @@
 import { resultOneMovie } from 'components/api/Api';
 import { useEffect, useState } from 'react';
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
+import { HiArrowSmLeft } from 'react-icons/hi';
 
 const MovieDetails = () => {
   const [oneMovie, setOneMovie] = useState('');
+
   const { movieId } = useParams();
   // console.log(movieId);
+  const location = useLocation();
 
   useEffect(() => {
     async function getOneMovie() {
       try {
         const response = await resultOneMovie(movieId);
-
         setOneMovie(response);
       } catch (error) {
         console.log(error);
@@ -37,12 +39,24 @@ const MovieDetails = () => {
     }
   };
 
+  if (!oneMovie) {
+    return <b>Loading...</b>;
+  }
+
   return (
     <>
+      <Link to={location.state}>
+        <HiArrowSmLeft size="20" />
+        Go back
+      </Link>
       <div>
         {oneMovie && (
           <img
-            src={`https://image.tmdb.org/t/p/w300${oneMovie.poster_path}`}
+            src={
+              oneMovie.poster_path
+                ? `https://image.tmdb.org/t/p/w300${oneMovie.poster_path}`
+                : 'https://via.placeholder.com/300x450?text=No+foto'
+            }
             alt={oneMovie.original_title}
             width="300"
             loading="lazy"

@@ -1,9 +1,10 @@
 import { resultMovieDay } from 'components/api/Api';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Home = () => {
   const [movieDay, setMovieDay] = useState([]);
+  const location = useLocation();
 
   useEffect(() => {
     async function resultMovie() {
@@ -13,9 +14,7 @@ const Home = () => {
           title: el.title,
           id: el.id,
         }));
-        if (arr && arr.length > 0) {
-          setMovieDay([...arr]);
-        }
+        setMovieDay([...arr]);
       } catch (error) {
         console.log(error);
       }
@@ -28,7 +27,9 @@ const Home = () => {
       <ul>
         {movieDay.map(movie => (
           <li key={movie.id}>
-            <Link to={`movies/${movie.id}`}>{movie.title}</Link>
+            <Link to={`movies/${movie.id}`} state={location}>
+              {movie.title}
+            </Link>
           </li>
         ))}
       </ul>

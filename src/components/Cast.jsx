@@ -20,6 +20,9 @@ const Cast = () => {
 
   return (
     <>
+      {actors.length === 0 && (
+        <h3>We don't have any casting information for this film.</h3>
+      )}
       <ul>
         {actors.map(actor => (
           <li key={actor.id}>
@@ -27,7 +30,7 @@ const Cast = () => {
               src={
                 actor.profile_path
                   ? `https://image.tmdb.org/t/p/w200${actor.profile_path}`
-                  : 'https://via.placeholder.com/200'
+                  : 'https://via.placeholder.com/200x300?text=No+foto'
               }
               alt={actor.name}
               width="200"
