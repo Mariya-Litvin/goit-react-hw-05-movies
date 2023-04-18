@@ -16,7 +16,7 @@ const Movies = () => {
   const onFormSubmit = evt => {
     evt.preventDefault();
     const form = evt.currentTarget;
-    setSearchParams({ query: form.elements.movie.value });
+    setSearchParams({ query: form.elements.movie.value.trim() });
     form.reset();
   };
 
@@ -24,6 +24,7 @@ const Movies = () => {
     if (filter === '') return;
     async function getSearchResult() {
       try {
+        console.log(filter);
         const response = await resultQuery(filter);
         const arr = response.map(el => ({
           title: el.title,
@@ -38,14 +39,16 @@ const Movies = () => {
           );
         }
       } catch (error) {
-        console.log(error);
+        Notiflix.Notify.failure(
+          'Sorry, something went wrong, please try again later'
+        );
       }
     }
     getSearchResult();
   }, [filter]);
 
   return (
-    <>
+    <main>
       <form onSubmit={onFormSubmit}>
         <input type="text" placeholder="Search movie" name="movie" />
         <button type="submit">Search</button>
@@ -62,7 +65,7 @@ const Movies = () => {
             ))}
         </ul>
       </div>
-    </>
+    </main>
   );
 };
 

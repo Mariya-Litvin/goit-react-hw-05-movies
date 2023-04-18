@@ -2,6 +2,7 @@ import { resultOneMovie } from 'components/api/Api';
 import { useEffect, useState } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import { HiArrowSmLeft } from 'react-icons/hi';
+import Notiflix from 'notiflix';
 
 const MovieDetails = () => {
   const [oneMovie, setOneMovie] = useState('');
@@ -16,7 +17,9 @@ const MovieDetails = () => {
         const response = await resultOneMovie(movieId);
         setOneMovie(response);
       } catch (error) {
-        console.log(error);
+        Notiflix.Notify.failure(
+          'Sorry, something went wrong, please try again later'
+        );
       }
     }
     getOneMovie();
@@ -44,7 +47,7 @@ const MovieDetails = () => {
   }
 
   return (
-    <>
+    <main>
       <Link to={location.state}>
         <HiArrowSmLeft size="20" />
         Go back
@@ -75,15 +78,19 @@ const MovieDetails = () => {
         <p>Additional Information</p>
         <ul>
           <li>
-            <Link to="cast">Cast</Link>
+            <Link to="cast" state={location.state}>
+              Cast
+            </Link>
           </li>
           <li>
-            <Link to="reviews">Reviews</Link>
+            <Link to="reviews" state={location.state}>
+              Reviews
+            </Link>
           </li>
         </ul>
         <Outlet />
       </div>
-    </>
+    </main>
   );
 };
 

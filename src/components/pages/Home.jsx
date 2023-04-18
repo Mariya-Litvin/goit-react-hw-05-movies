@@ -1,6 +1,7 @@
 import { resultMovieDay } from 'components/api/Api';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import Notiflix from 'notiflix';
 
 const Home = () => {
   const [movieDay, setMovieDay] = useState([]);
@@ -14,26 +15,31 @@ const Home = () => {
           title: el.title,
           id: el.id,
         }));
-        setMovieDay([...arr]);
+        setMovieDay(arr);
       } catch (error) {
-        console.log(error);
+        Notiflix.Notify.failure(
+          'Sorry, something went wrong, please try again later'
+        );
       }
     }
     resultMovie();
   }, []);
 
   return (
-    <div>
-      <ul>
-        {movieDay.map(movie => (
-          <li key={movie.id}>
-            <Link to={`movies/${movie.id}`} state={location}>
-              {movie.title}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <main>
+      <h1>The most popular movies at this day</h1>
+      <div>
+        <ul>
+          {movieDay.map(movie => (
+            <li key={movie.id}>
+              <Link to={`movies/${movie.id}`} state={location}>
+                {movie.title}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </main>
   );
 };
 
