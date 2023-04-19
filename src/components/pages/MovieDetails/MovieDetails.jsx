@@ -9,6 +9,7 @@ import {
   TextAboutMovie,
   Information,
   ButtonBack,
+  Loading,
 } from './MovieDetails.styled';
 
 const MovieDetails = () => {
@@ -50,7 +51,19 @@ const MovieDetails = () => {
   };
 
   if (!oneMovie) {
-    return <b>Loading...</b>;
+    return (
+      <b
+        style={{
+          width: '1280',
+          margin: '0 auto',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        Loading...
+      </b>
+    );
   }
 
   const backLinkHref = location.state?.from ?? '/';
@@ -100,7 +113,7 @@ const MovieDetails = () => {
               </Link>
             </li>
           </ul>
-          <Suspense fallback={<div>Loading subpage...</div>}>
+          <Suspense fallback={<Loading>Loading subpage...</Loading>}>
             <Outlet />
           </Suspense>
         </Information>

@@ -49,3 +49,13 @@ export const ButtonBack = styled(Link)`
     background-color: #6495ed;
   }
 `;
+
+export const Loading = styled.div`
+  width: 1280;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 500;
+`;

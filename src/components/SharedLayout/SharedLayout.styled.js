@@ -33,3 +33,13 @@ export const LinkActive = styled(NavLink)`
     background-color: #1f75fe;
   }
 `;
+
+export const Loading = styled.div`
+  width: 1280;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 500;
+`;
