@@ -59,6 +59,8 @@ const MovieDetails = () => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          fontSize: '20px',
+          fontWeight: '500',
         }}
       >
         Loading...
