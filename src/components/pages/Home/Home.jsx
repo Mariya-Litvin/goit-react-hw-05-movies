@@ -2,6 +2,7 @@ import { resultMovieDay } from 'components/api/Api';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Notiflix from 'notiflix';
+import { HomeList, Section } from './Home.styled';
 
 const Home = () => {
   const [movieDay, setMovieDay] = useState([]);
@@ -27,9 +28,9 @@ const Home = () => {
 
   return (
     <main>
-      <h1>The most popular movies at this day</h1>
-      <div>
-        <ul>
+      <Section>
+        <h1>The most popular movies at this day</h1>
+        <HomeList>
           {movieDay.map(movie => (
             <li key={movie.id}>
               <Link to={`movies/${movie.id}`} state={{ from: location }}>
@@ -37,8 +38,8 @@ const Home = () => {
               </Link>
             </li>
           ))}
-        </ul>
-      </div>
+        </HomeList>
+      </Section>
     </main>
   );
 };

@@ -2,10 +2,11 @@ import { resultQuery } from 'components/api/Api';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Notiflix from 'notiflix';
-import MoviesList from 'components/MoviesList';
+import MoviesList from 'components/MoviesList/MoviesList';
+import { Button, Input, WrapperForm } from './Movies.styled';
 
 const Movies = () => {
-  const [name, setName] = useState('');
+  const [namesMovies, setNamesMovies] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
 
   const filter = searchParams.get('query') ?? '';
@@ -31,7 +32,7 @@ const Movies = () => {
           id: el.id,
         }));
         if (arr && arr.length > 0) {
-          setName(arr);
+          setNamesMovies(arr);
         }
         if (arr.length === 0) {
           return Notiflix.Notify.info(
@@ -49,11 +50,11 @@ const Movies = () => {
 
   return (
     <main>
-      <form onSubmit={onFormSubmit}>
-        <input type="text" placeholder="Search movie" name="movie" />
-        <button type="submit">Search</button>
-      </form>
-      <MoviesList name={name} />
+      <WrapperForm onSubmit={onFormSubmit}>
+        <Input type="text" placeholder="Search movie..." name="movie" />
+        <Button type="submit">Search</Button>
+      </WrapperForm>
+      {namesMovies && <MoviesList titles={namesMovies} />}
     </main>
   );
 };

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { resultCast } from './api/Api';
+import { resultCast } from '../api/Api';
+import { Cards, ElementCards, Section } from './Cast.styled';
 
 const Cast = () => {
   const [actors, setActors] = useState([]);
@@ -19,13 +20,13 @@ const Cast = () => {
   }, [movieId]);
 
   return (
-    <>
+    <Section>
       {actors.length === 0 && (
         <h3>We don't have any casting information for this film.</h3>
       )}
-      <ul>
+      <Cards>
         {actors.map(actor => (
-          <li key={actor.id}>
+          <ElementCards key={actor.id}>
             <img
               src={
                 actor.profile_path
@@ -38,10 +39,10 @@ const Cast = () => {
             />
             <p>{actor.name}</p>
             <p>Character: {actor.character} </p>
-          </li>
+          </ElementCards>
         ))}
-      </ul>
-    </>
+      </Cards>
+    </Section>
   );
 };
 
