@@ -46,9 +46,11 @@ const MovieDetails = () => {
     return <b>Loading...</b>;
   }
 
+  const backLinkHref = location.state?.from ?? '/';
+
   return (
     <main>
-      <Link to={location.state}>
+      <Link to={backLinkHref}>
         <HiArrowSmLeft size="20" />
         Go back
       </Link>

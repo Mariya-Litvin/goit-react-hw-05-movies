@@ -1,7 +1,8 @@
 import { resultQuery } from 'components/api/Api';
 import { useEffect, useState } from 'react';
-import { Link, useLocation, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import Notiflix from 'notiflix';
+import MoviesList from 'components/MoviesList';
 
 const Movies = () => {
   const [name, setName] = useState('');
@@ -9,7 +10,7 @@ const Movies = () => {
 
   const filter = searchParams.get('query') ?? '';
   // console.log(filter);
-  const location = useLocation();
+  // const location = useLocation();
 
   // Викликається під час відправлення форми
 
@@ -24,7 +25,6 @@ const Movies = () => {
     if (filter === '') return;
     async function getSearchResult() {
       try {
-        console.log(filter);
         const response = await resultQuery(filter);
         const arr = response.map(el => ({
           title: el.title,
@@ -53,18 +53,7 @@ const Movies = () => {
         <input type="text" placeholder="Search movie" name="movie" />
         <button type="submit">Search</button>
       </form>
-      <div>
-        <ul>
-          {name &&
-            name.map(movie => (
-              <li key={movie.id}>
-                <Link to={`${movie.id}`} state={location}>
-                  {movie.title}
-                </Link>
-              </li>
-            ))}
-        </ul>
-      </div>
+      <MoviesList name={name} />
     </main>
   );
 };
